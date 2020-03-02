@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="Radio_Player" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" semanticContentAttribute="forceLeftToRight" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Radios" translatesAutoresizingMaskIntoConstraints="NO" id="Ncu-M4-bEP">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Ncu-M4-bEP" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="3Ey-51-61D"/>
+                            <constraint firstItem="Ncu-M4-bEP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ENC-hi-FXk"/>
+                            <constraint firstAttribute="bottom" secondItem="Ncu-M4-bEP" secondAttribute="bottom" id="MsH-Ho-STa"/>
+                            <constraint firstItem="Ncu-M4-bEP" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xBp-1S-ORf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137.68115942028987" y="112.5"/>
+        </scene>
+        <!--Radio Collection View Controller-->
+        <scene sceneID="02i-hg-IBk">
+            <objects>
+                <viewController storyboardIdentifier="RadioCollectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="I07-sN-mCo" customClass="RadioCollectionViewController" customModule="Radio_Player" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m4F-Mz-hGU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Radio" translatesAutoresizingMaskIntoConstraints="NO" id="sIH-4p-Hk7">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="120"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="rbi-Il-NQL"/>
+                                </constraints>
+                            </imageView>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="731-cB-x8a">
+                                <rect key="frame" x="0.0" y="120" width="414" height="776"/>
+                                <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="3DA-H5-P0a">
+                                    <size key="itemSize" width="193" height="157"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="2si-dJ-w7t">
+                                        <rect key="frame" x="0.0" y="0.0" width="160" height="157"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="qxd-is-wBZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="160" height="157"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="1" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1YF-I9-bze">
+                                                    <rect key="frame" x="0.0" y="0.0" width="160" height="157"/>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1YF-I9-bze" firstAttribute="top" secondItem="qxd-is-wBZ" secondAttribute="top" id="8MJ-Fw-6I2"/>
+                                                <constraint firstAttribute="trailing" secondItem="1YF-I9-bze" secondAttribute="trailing" id="FqK-J1-m1h"/>
+                                                <constraint firstAttribute="bottom" secondItem="1YF-I9-bze" secondAttribute="bottom" id="ILG-U2-tSb"/>
+                                                <constraint firstItem="1YF-I9-bze" firstAttribute="leading" secondItem="qxd-is-wBZ" secondAttribute="leading" id="cdI-x7-fF5"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="160" height="157"/>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="I07-sN-mCo" id="266-GP-VQv"/>
+                                    <outlet property="delegate" destination="I07-sN-mCo" id="tJE-hX-EmK"/>
+                                </connections>
+                            </collectionView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kIy-kR-nBH">
+                                <rect key="frame" x="8" y="862" width="398" height="150"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RADIO MIRCHI" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbz-fd-E4l">
+                                        <rect key="frame" x="20" y="55" width="131" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="jg7-CG-YF6"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="MarkerFelt-Thin" family="Marker Felt" pointSize="20"/>
+                                        <color key="textColor" red="0.16556853055953979" green="0.49706548452377319" blue="0.086856268346309662" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sqh-jk-LRO">
+                                        <rect key="frame" x="159" y="35" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="Cgr-yT-QeB"/>
+                                            <constraint firstAttribute="width" constant="80" id="r4Q-Uh-hmt"/>
+                                        </constraints>
+                                        <state key="normal" image="stopImage"/>
+                                        <connections>
+                                            <action selector="playPauseButton:" destination="I07-sN-mCo" eventType="touchUpInside" id="93e-Ua-08e"/>
+                                        </connections>
+                                    </button>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="5" minimumValueImage="mute" maximumValueImage="maxvolume" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-dd-das">
+                                        <rect key="frame" x="247" y="65" width="145" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="BdG-kt-H5A"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="volumeSlider:" destination="I07-sN-mCo" eventType="valueChanged" id="gxd-Rx-oZy"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" red="0.95070654153823853" green="0.90585476160049438" blue="0.97002106904983521" alpha="0.45095180457746481" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="XPo-dd-das" firstAttribute="leading" secondItem="sqh-jk-LRO" secondAttribute="trailing" constant="10" id="1fh-yk-kGQ"/>
+                                    <constraint firstAttribute="height" constant="150" id="4wy-Uy-oPV"/>
+                                    <constraint firstItem="nbz-fd-E4l" firstAttribute="leading" secondItem="kIy-kR-nBH" secondAttribute="leading" constant="20" symbolic="YES" id="EFI-YL-YEN"/>
+                                    <constraint firstAttribute="trailing" secondItem="XPo-dd-das" secondAttribute="trailing" constant="8" id="I0e-og-TMD"/>
+                                    <constraint firstItem="sqh-jk-LRO" firstAttribute="centerY" secondItem="kIy-kR-nBH" secondAttribute="centerY" id="Ihj-3c-BAk"/>
+                                    <constraint firstItem="XPo-dd-das" firstAttribute="centerY" secondItem="kIy-kR-nBH" secondAttribute="centerY" id="WWY-1T-uoF"/>
+                                    <constraint firstItem="nbz-fd-E4l" firstAttribute="centerY" secondItem="kIy-kR-nBH" secondAttribute="centerY" id="aaZ-uy-Lib"/>
+                                    <constraint firstItem="sqh-jk-LRO" firstAttribute="leading" secondItem="nbz-fd-E4l" secondAttribute="trailing" constant="8" id="qAJ-Yy-dA6"/>
+                                    <constraint firstItem="sqh-jk-LRO" firstAttribute="centerX" secondItem="kIy-kR-nBH" secondAttribute="centerXWithinMargins" id="y1d-uw-M3A"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="731-cB-x8a" secondAttribute="bottom" id="4Hf-l9-nYk"/>
+                            <constraint firstItem="731-cB-x8a" firstAttribute="trailing" secondItem="Y8N-bd-W4e" secondAttribute="trailing" id="607-fb-sgk"/>
+                            <constraint firstItem="sIH-4p-Hk7" firstAttribute="trailing" secondItem="Y8N-bd-W4e" secondAttribute="trailing" id="7id-d7-ImK"/>
+                            <constraint firstItem="731-cB-x8a" firstAttribute="leading" secondItem="Y8N-bd-W4e" secondAttribute="leading" id="7sK-dC-8oA"/>
+                            <constraint firstItem="kIy-kR-nBH" firstAttribute="trailing" secondItem="Y8N-bd-W4e" secondAttribute="trailing" constant="-8" id="BcS-hL-M2O"/>
+                            <constraint firstItem="sIH-4p-Hk7" firstAttribute="leading" secondItem="Y8N-bd-W4e" secondAttribute="leading" id="NZE-bV-vMD"/>
+                            <constraint firstItem="sIH-4p-Hk7" firstAttribute="top" secondItem="m4F-Mz-hGU" secondAttribute="top" id="YdE-JZ-PLN"/>
+                            <constraint firstItem="kIy-kR-nBH" firstAttribute="leading" secondItem="Y8N-bd-W4e" secondAttribute="leading" constant="8" id="byT-DW-dDu"/>
+                            <constraint firstItem="kIy-kR-nBH" firstAttribute="bottom" secondItem="Y8N-bd-W4e" secondAttribute="bottom" constant="150" id="fxd-4L-3Rs"/>
+                            <constraint firstItem="731-cB-x8a" firstAttribute="top" secondItem="sIH-4p-Hk7" secondAttribute="bottom" id="tYd-LV-ugo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Y8N-bd-W4e"/>
+                    </view>
+                    <connections>
+                        <outlet property="bottomConstarint" destination="fxd-4L-3Rs" id="nW9-hA-auX"/>
+                        <outlet property="collectionView" destination="731-cB-x8a" id="Bxr-3u-ggK"/>
+                        <outlet property="playPauseButton" destination="sqh-jk-LRO" id="36X-4h-ACk"/>
+                        <outlet property="playView" destination="kIy-kR-nBH" id="OP0-Ht-2jZ"/>
+                        <outlet property="radioChannelName" destination="nbz-fd-E4l" id="NKj-wd-Z8P"/>
+                        <outlet property="sliderView" destination="XPo-dd-das" id="IUI-pa-uVO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RX2-CA-p7s" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="76.811594202898561" y="-561.16071428571422"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Radio" width="369" height="283"/>
+        <image name="Radios" width="709" height="709"/>
+        <image name="maxvolume" width="23" height="23"/>
+        <image name="mute" width="28" height="28"/>
+        <image name="stopImage" width="170" height="170"/>
+    </resources>
+</document>

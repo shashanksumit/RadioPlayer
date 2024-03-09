@@ -8,11 +8,11 @@
 
 import UIKit
 import AVKit
+import MediaPlayer
 
 
 class RadioCollectionViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var sliderView: UISlider!
     
     @IBOutlet weak var radioChannelName: UILabel!
     @IBOutlet weak var bottomConstarint: NSLayoutConstraint!
@@ -33,7 +33,6 @@ class RadioCollectionViewController: UIViewController {
         collectionView.layoutIfNeeded()
         playView.layer.cornerRadius = 10.0
         playView.layer.shadowRadius = 5.0
-        sliderView.minimumTrackTintColor = .green
         
         
         let audioSession = AVAudioSession.sharedInstance()
@@ -43,38 +42,71 @@ class RadioCollectionViewController: UIViewController {
             try audioSession.setActive(true, options: .notifyOthersOnDeactivation)
             try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             UIApplication.shared.beginReceivingRemoteControlEvents()
+            updateTrackDetailsOnRemote()
         } catch {
             print("error.")
         }
         
     }
     
-    override func remoteControlReceived(with event: UIEvent?) {
-        print(event!.type)
-        if event!.type == UIEvent.EventType.remoteControl {
-            if event?.subtype == UIEvent.EventSubtype.remoteControlPlay {
-                if player?.rate == 1.0{
-                    player?.pause()
-                    player = nil
-                }else{
-                    let data = self.radioMenuArray[selectedChannel]
-                    print("Radio channel Details-",data)
-                    fileUrl = URL(string: data[1] as! String)
-                    radioChannelName.text = (data[2] as? String ?? "").uppercased()
-                    self.play(url: self.fileUrl! as NSURL)
-                }
-            }
-            if   event?.subtype == UIEvent.EventSubtype.remoteControlPause{
-                player?.pause()
-                player = nil
-            }
-            if event?.subtype == UIEvent.EventSubtype.remoteControlNextTrack {
-                let data = self.radioMenuArray[selectedChannel]
-                print("Radio channel Details-",data)
-                fileUrl = URL(string: data[1] as! String)
-                radioChannelName.text = (data[2] as? String ?? "").capitalized
+    func updateTrackDetailsOnRemote() {
+        
+        MPRemoteCommandCenter.shared().playCommand.addTarget {event in
+            if self.player?.rate == 1.0{
+                self.player?.pause()
+                self.player = nil
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                    MPMediaItemPropertyTitle: self.radioChannelName.text ?? ""]
+            }else{
+                let data = self.radioMenuArray[self.selectedChannel]
+                self.fileUrl = URL(string: data[1] as! String)
+                self.radioChannelName.text = (data[2] as? String ?? "").uppercased()
                 self.play(url: self.fileUrl! as NSURL)
+                MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                    MPMediaItemPropertyTitle: self.radioChannelName.text ?? "",
+                    MPNowPlayingInfoPropertyIsLiveStream: true]
+                MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: data[0] as? UIImage ?? UIImage(resource: .radio))
             }
+            return .success
+        }
+        MPRemoteCommandCenter.shared().pauseCommand.addTarget {event in
+            self.player?.pause()
+            self.player = nil
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                MPMediaItemPropertyTitle: self.radioChannelName.text ?? ""]
+            return .success
+        }
+        MPRemoteCommandCenter.shared().nextTrackCommand.addTarget {event in
+            if self.selectedChannel == self.radioMenuArray.count - 1 {
+                self.selectedChannel = 0
+            } else {
+                self.selectedChannel += 1
+            }
+            let data = self.radioMenuArray[self.selectedChannel]
+            self.fileUrl = URL(string: data[1] as! String)
+            self.radioChannelName.text = (data[2] as? String ?? "").capitalized
+            self.play(url: self.fileUrl! as NSURL)
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                MPMediaItemPropertyTitle: self.radioChannelName.text ?? "",
+                MPNowPlayingInfoPropertyIsLiveStream: true]
+            MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: data[0] as? UIImage ?? UIImage(resource: .radio))
+            return .success
+        }
+        MPRemoteCommandCenter.shared().previousTrackCommand.addTarget {event in
+            if self.selectedChannel == 0 {
+                self.selectedChannel = self.radioMenuArray.count - 1
+            } else {
+                self.selectedChannel -= 1
+            }
+            let data = self.radioMenuArray[self.selectedChannel]
+            self.fileUrl = URL(string: data[1] as! String)
+            self.radioChannelName.text = (data[2] as? String ?? "").capitalized
+            self.play(url: self.fileUrl! as NSURL)
+            MPNowPlayingInfoCenter.default().nowPlayingInfo = [
+                MPMediaItemPropertyTitle: self.radioChannelName.text ?? "",
+                MPNowPlayingInfoPropertyIsLiveStream: true]
+            MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(image: data[0] as? UIImage ?? UIImage(resource: .radio))
+            return .success
         }
     }
     
@@ -102,7 +134,6 @@ class RadioCollectionViewController: UIViewController {
             let playerItem = AVPlayerItem(url: url as URL)
             player =  AVPlayer(playerItem:playerItem)
             player?.cancelPendingPrerolls()
-            player?.volume = 0.5
             player?.play()
             playViewShow()
         }
@@ -133,19 +164,6 @@ class RadioCollectionViewController: UIViewController {
         }
     }
     
-    @IBAction func volumeSlider(_ sender: UISlider) {
-        let selectedValue = sender.value
-        player?.volume = selectedValue
-        sliderView.accessibilityLabel = "Volume"
-        if sender.value <= 1.5 {
-            sliderView.minimumTrackTintColor = .green
-        } else if sender.value > 1.5 && sender.value <= 3 {
-            sliderView.minimumTrackTintColor = .yellow
-        } else {
-            sliderView.minimumTrackTintColor = .red
-        }
-    }
-    
 }
 
 extension RadioCollectionViewController: UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout{
@@ -165,7 +183,7 @@ extension RadioCollectionViewController: UICollectionViewDelegate,UICollectionVi
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize{
         collectionView.layoutIfNeeded()
-        let padding: CGFloat = 30
+        let padding: CGFloat = 10
         let collectionViewSize = UIScreen.main.bounds.size.width - padding
         return CGSize(width: collectionViewSize/2, height: collectionViewSize/2)
     }
@@ -177,7 +195,6 @@ extension RadioCollectionViewController: UICollectionViewDelegate,UICollectionVi
         player = nil
         selectedChannel = indexPath.row
         let data = self.radioMenuArray[indexPath.row]
-        print("Radio channel Details-",data)
         let fileUrl = URL(string: data[1] as! String)
         radioChannelName.text = (data[2] as? String ?? "").uppercased()
         radioChannelName.sizeToFit()
